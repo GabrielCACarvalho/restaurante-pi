@@ -17,11 +17,11 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping("/carrinho/{idPedido}")
+    @PostMapping("/itens/{idPedido}")
     public List<Item> adicionarItens(
             @PathVariable Integer idPedido,
-            @RequestBody List<ItemDTO> itensDTO) {
-
+            @RequestBody List<ItemDTO> itensDTO
+    ) {
         return itemService.adicionarItens(idPedido, itensDTO);
     }
 }

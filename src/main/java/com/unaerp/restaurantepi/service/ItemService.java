@@ -10,7 +10,9 @@ import com.unaerp.restaurantepi.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,11 +26,19 @@ public class ItemService {
     private ProdutoRepository produtoRepository;
 
     public List<Item> adicionarItens(Integer idPedido, List<ItemDTO> itensDTO) {
-        Pedido pedido = pedidoRepository.findById(idPedido).get();
+        Optional<Pedido> pedido = pedidoRepository.findById(idPedido);
+
+        if (pedido.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         return itemRepository.saveAll(itensDTO.stream().map(itemDTO -> {
-            Produto produto = produtoRepository.findById(itemDTO.getIdProduto()).get();
-            return new Item(pedido, produto, itemDTO.getQuantidade());
+            Optional<Produto> produto = produtoRepository.findById(itemDTO.getIdProduto());
+
+            if (produto.isEmpty())
+                return null;
+
+            return new Item(pedido.get(), produto.get(), itemDTO.getQuantidade());
         }).collect(Collectors.toList()));
     }
 }

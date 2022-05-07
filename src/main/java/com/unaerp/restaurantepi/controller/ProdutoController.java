@@ -3,7 +3,6 @@ package com.unaerp.restaurantepi.controller;
 import com.unaerp.restaurantepi.model.Produto;
 import com.unaerp.restaurantepi.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +16,7 @@ public class ProdutoController {
 
     @GetMapping("/produto/listar")
     public List<Produto> listarProdutos() {
-        List<Produto> test = produtoService.listarProduto();
-        return test;
+        return produtoService.listarProduto();
     }
 
     @PostMapping("/produto/salvar")
@@ -26,7 +24,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.salvarProduto(produto));
     }
 
-    @DeleteMapping("/produto/delete/{idProduto}")
+    @DeleteMapping("/produto/{idProduto}")
     public void deleteProduto(@PathVariable Integer idProduto) {
         produtoService.deleteProduto(idProduto);
     }
