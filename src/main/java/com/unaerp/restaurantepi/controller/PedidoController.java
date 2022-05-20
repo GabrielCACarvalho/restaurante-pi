@@ -23,5 +23,9 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.listarPedido(idPedido));
     }
 
-    //@DeleteMapping("/pedido/{idPedido}")
+    @DeleteMapping("/pedido/{idPedido}")
+    public ResponseEntity deletaPedido(@PathVariable Integer idPedido) {
+        pedidoService.deletarPedido(idPedido);
+        return ResponseEntity.ok().build();
+    }
 }

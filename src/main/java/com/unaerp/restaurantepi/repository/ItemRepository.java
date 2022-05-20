@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     List<Item> findByPedido(Pedido pedido);
+
+    void deleteAllByPedidoCodigo(Integer codigo);
 }

@@ -41,4 +41,8 @@ public class ItemService {
             return new Item(pedido.get(), produto.get(), itemDTO.getQuantidade());
         }).collect(Collectors.toList()));
     }
+
+    public void removeItem(List<Integer> idsItem) {
+        itemRepository.deleteAllById(idsItem);
+    }
 }
